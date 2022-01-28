@@ -10,9 +10,7 @@
   "scripts": {
     "start": "node index.js"
   },
-  "devDependencies": {
- 
-  },
+  "devDependencies": {},
   "engines": {
     "node": "7.6.0"
   }
