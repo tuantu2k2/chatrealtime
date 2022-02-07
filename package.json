@@ -1,9 +1,6 @@
 {
   "name": "chat",
   "version": "1.0.0",
-  "engines": {
-    "npm": "6.x"
-  },
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -15,6 +12,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": "7.6.0"
+    "node": "7.6.0",
+    "npm": "6.x"
   }
 }
