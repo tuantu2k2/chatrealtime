@@ -1,0 +1,23 @@
+:root{
+    background-color: rgb(220, 243, 247);
+}
+.main-title{
+    text-align: center;
+    color: dodgerblue;
+}
+p{
+    margin: 5px;
+    padding: 10px;
+}
+.messages{
+    background-color: aquamarine;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: auto;
+
+}
+/* //form */
+#chat-form{
+    text-align: center;
+    border-radius: 5px;
+}

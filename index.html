@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <title>app chat</title>
 </head>
 <body>
-    <h1>app chat real time</h1>
+    <h1 class="main-title">app chat real time</h1>
 
-    <ul id="messages"></ul>
+    <div id="messages"></div>
 
     <form action="" id="chat-form">
         <input type="text" id="chat-mes">
@@ -18,6 +19,7 @@
 </body>
 <script src="socket.io/socket.io.js"></script>
 <script>
+    
     const socket = io()
     const name = prompt('Tên bạn là gì?')
     const chatForm = document.querySelector('#chat-form')
@@ -35,8 +37,12 @@
     const messages = document.querySelector('#messages')
 
     socket.on('user-chat',(message)=>{
-        const chatItem = document.createElement('li')
-        chatItem.textContent = `${message.name}:${message.message}`
+        var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
+        const chatItem = document.createElement('p')
+        chatItem.classList.add("messages")
+        chatItem.innerText = `${date}__${time}\n${message.name} : ${message.message}`
 
         messages.appendChild(chatItem)
     })
