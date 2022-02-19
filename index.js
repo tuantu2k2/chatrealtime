@@ -3,7 +3,8 @@ const app = express()
 const path = require("path");
 const http = require('http')
 const server = http.createServer(app)
-const {Server} = require('socket.io')
+const {Server} = require('socket.io');
+const res = require('express/lib/response');
 
 const io = new Server(server)
 app.use(express.static(path.join(__dirname,'public')))
@@ -19,6 +20,22 @@ io.on('connection',(socket)=>{
     socket.on('on-chat',data=>{
         io.emit('user-chat',data)
     })
+    //arr
+    
+    const users = {};
+    socket.on('login', function(data){
+        console.log('a user ' + data.userId + ' connected');
+        // saving userId to object with socket ID
+        users[socket.id] = data.userId;
+      });
+    
+      socket.on('disconnect', function(){
+        io.emit('user-disconnect',users[socket.id])
+        console.log('user ' + users[socket.id] + ' disconnected');
+        // remove saved socket from users object
+        delete users[socket.id];
+      });
+      
 })
 
 server.listen(process.env.PORT || 3000, ()=>{

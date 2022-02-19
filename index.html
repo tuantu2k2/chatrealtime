@@ -37,6 +37,11 @@
                 socket.on('user-connect',(name)=>{
                     document.getElementById("messages").innerHTML+= `<div class"messages"><span style='color:white'>${name} </span><span style='color:cyan'>đã kết nối</span></div>`
                 })
+                //user disconnect
+                socket.emit('login',{userId:name});
+                socket.on('user-disconnect',users=>{
+                    document.getElementById("messages").innerHTML+= `<div class"messages"><span style='color:white'>${users} </span><span style='color:red'>đã thoát</span></div>`
+                })
     chatForm.addEventListener('submit', (e) => {
         //user chat
         e.preventDefault();
