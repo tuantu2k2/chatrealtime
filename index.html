@@ -54,7 +54,9 @@
         chatItem.innerHTML = `<span style="color:yellow">${date}__${time}</span><br/><span style="color:green">${message.name}</span> <span style="color:white">:</span> <span style="color:aqua" id="msg">${message.message}</span>`
         //key words
         if(message.message =="phao hoa") {
-            document.getElementsByTagName("canvas")[0].remove();
+            if(document.getElementsByTagName("canvas")[0]){
+                document.getElementsByTagName("canvas")[0].remove();
+            }
             jQuery(function($){
             var firework = Xteam.fireworkShow('#firework', 400);
          }
