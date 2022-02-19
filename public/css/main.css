@@ -1,16 +1,21 @@
 :root{
-    background-color: rgb(220, 243, 247);
+    background: url("https://i.pinimg.com/564x/3f/f2/16/3ff21635c72aa109b10a15c6fe02a8bd.jpg");
+    background-size: cover;
 }
 .main-title{
     text-align: center;
     color: dodgerblue;
+}
+header{
+    min-height: 80vh;
+    min-width: 80vw;
 }
 p{
     margin: 5px;
     padding: 10px;
 }
 .messages{
-    background-color: aquamarine;
+    background-color: rgba(158, 218, 238, 0.1);
     border: 1px solid black;
     border-radius: 5px;
     width: auto;

@@ -9,15 +9,20 @@
 </head>
 <body>
     <h1 class="main-title">app chat real time</h1>
+    <header id="firework" class="firework">
 
-    <div id="messages"></div>
 
-    <form action="" id="chat-form">
-        <input type="text" id="chat-mes">
-        <button id="send-chat">Gui</button>
-    </form>
+        <div id="messages"></div>
+    
+        <form action="" id="chat-form">
+            <input type="text" id="chat-mes">
+            <button id="send-chat">Gui</button>
+        </form>
+    </header>
 </body>
 <script src="socket.io/socket.io.js"></script>
+<script src="js/xteam_fireworks.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
     
     const socket = io()
@@ -32,19 +37,33 @@
             name,
             message
         })
-        chatMes.value = ''
+        if(chatMes.value =="clear msg") {
+            document.getElementById("messages").textContent = "";
+        }
+        chatMes.value = '';
     })
     const messages = document.querySelector('#messages')
-
     socket.on('user-chat',(message)=>{
+        if(message.message != "clear msg"){
+            
         var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
         const chatItem = document.createElement('p')
         chatItem.classList.add("messages")
-        chatItem.innerHTML = `<span style="color:indigo">${date}__${time}</span><br/><span style="color:red">${message.name}</span> : ${message.message}`
-
+        chatItem.innerHTML = `<span style="color:yellow">${date}__${time}</span><br/><span style="color:green">${message.name}</span> <span style="color:white">:</span> <span style="color:aqua" id="msg">${message.message}</span>`
+        //key words
+        if(message.message =="phao hoa") {
+            jQuery(function($){
+            var firework = Xteam.fireworkShow('#firework', 400);
+         }
+         );
+        }if(message.message=="stop phao hoa"){
+            document.getElementsByTagName("canvas")[0].remove();
+        }
         messages.appendChild(chatItem)
-    })
+    }
+        }
+        )
 </script>
 </html>
