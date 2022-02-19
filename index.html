@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +8,14 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <title>app chat</title>
 </head>
+
 <body>
     <h1 class="main-title">app chat real time</h1>
     <header id="firework" class="firework">
 
 
         <div id="messages"></div>
-    
+
         <form action="" id="chat-form">
             <input type="text" id="chat-mes">
             <button id="send-chat">Gui</button>
@@ -24,49 +26,56 @@
 <script src="js/xteam_fireworks.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
-    
+
     const socket = io()
     const name = prompt('Tên bạn là gì?')
     const chatForm = document.querySelector('#chat-form')
     const chatMes = document.querySelector('#chat-mes')
 
-    chatForm.addEventListener('submit', (e)=>{
+                //user connect
+                socket.emit('on-connect',name)
+                socket.on('user-connect',(name)=>{
+                    document.getElementById("messages").innerHTML+= `<div class"messages"><span style='color:white'>${name} </span><span style='color:cyan'>đã kết nối</span></div>`
+                })
+    chatForm.addEventListener('submit', (e) => {
+        //user chat
         e.preventDefault();
         const message = chatMes.value
-        socket.emit('on-chat',{
+        socket.emit('on-chat', {
             name,
             message
         })
-        if(chatMes.value =="clear msg") {
+        if (chatMes.value == "clear msg") {
             document.getElementById("messages").textContent = "";
         }
         chatMes.value = '';
     })
     const messages = document.querySelector('#messages')
-    socket.on('user-chat',(message)=>{
-        if(message.message != "clear msg"){
-            
-        var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
-        const chatItem = document.createElement('p')
-        chatItem.classList.add("messages")
-        chatItem.innerHTML = `<span style="color:yellow">${date}__${time}</span><br/><span style="color:green">${message.name}</span> <span style="color:white">:</span> <span style="color:aqua" id="msg">${message.message}</span>`
-        //key words
-        if(message.message =="phao hoa") {
-            if(document.getElementsByTagName("canvas")[0]){
+    socket.on('user-chat', (message) => {
+        if (message.message != "clear msg") {
+
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+            const chatItem = document.createElement('p')
+            chatItem.classList.add("messages")
+            chatItem.innerHTML = `<span style="color:yellow">${date}__${time}</span><br/><span style="color:green">${message.name}</span> <span style="color:white">:</span> <span style="color:aqua" id="msg">${message.message}</span>`
+            //key words
+            if (message.message == "phao hoa") {
+                if (document.getElementsByTagName("canvas")[0]) {
+                    document.getElementsByTagName("canvas")[0].remove();
+                }
+                jQuery(function ($) {
+                    var firework = Xteam.fireworkShow('#firework', 400);
+                }
+                );
+            } if (message.message == "stop phao hoa") {
                 document.getElementsByTagName("canvas")[0].remove();
             }
-            jQuery(function($){
-            var firework = Xteam.fireworkShow('#firework', 400);
-         }
-         );
-        }if(message.message=="stop phao hoa"){
-            document.getElementsByTagName("canvas")[0].remove();
+            messages.appendChild(chatItem)
         }
-        messages.appendChild(chatItem)
     }
-        }
-        )
+    )
 </script>
+
 </html>

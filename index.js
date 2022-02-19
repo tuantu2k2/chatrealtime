@@ -12,7 +12,9 @@ app.get('/',(req, res) =>{
 })
 
 io.on('connection',(socket)=>{
-
+    socket.on('on-connect',data=>{
+        io.emit('user-connect',data)
+    })
     console.log('user connected')
     socket.on('on-chat',data=>{
         io.emit('user-chat',data)
