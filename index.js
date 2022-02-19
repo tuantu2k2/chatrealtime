@@ -13,6 +13,7 @@ app.get('/',(req, res) =>{
 })
 
 io.on('connection',(socket)=>{
+    const users = {};
     socket.on('on-connect',data=>{
         io.emit('user-connect',data)
     })
@@ -22,11 +23,12 @@ io.on('connection',(socket)=>{
     })
     //arr
     
-    const users = {};
+
     socket.on('login', function(data){
         console.log('a user ' + data.userId + ' connected');
         // saving userId to object with socket ID
-        users[socket.id] = data.userId;
+        // users[socket.id] = data.userId;
+        // io.emit('view-onl',users)
       });
     
       socket.on('disconnect', function(){
